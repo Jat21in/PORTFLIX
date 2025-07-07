@@ -11,7 +11,7 @@
 🍿 A unique, interactive, and visually stunning portfolio website designed with a Netflix-inspired UI/UX.
 ✨ Built with Next.js 14, Tailwind CSS, and Framer Motion for a captivating experience.
 
-[🚀 Live Demo](https://your-live-demo-url.vercel.app/) • [📚 Docs](https://github.com/your-username/portflix/) • [🐛 Report Bug](https://github.com/your-username/portflix/issues)
+[🚀 Live Demo](https://portflix-three.vercel.app/) • [📚 Docs](https://github.com/Jat21in/PORTFLIX/) • [🐛 Report Bug](https://github.com/Jat21in/PORTFLIX/)
 
 <img src="public/1.png" alt="PORTFLIX Portfolio Dashboard" width="700"/>
 
@@ -167,6 +167,6 @@ Special thanks to:
 
 <sub>Made with ❤️ and 🍿 by JATIN MITTAL who believes every portfolio deserves a premiere</sub>
 
-**[⭐ Star this repo](https://github.com/your-username/portflix/)** • **[🐛 Report Bug](https://github.com/your-username/portflix/issues)** • **[💡 Request Feature](https://github.com/your-username/portflix/issues)**
+**[⭐ Star this repo](https://github.com/Jat21in/PORTFLIX/)** • **[🐛 Report Bug](https://github.com/Jat21in/PORTFLIX/issues)** • **[💡 Request Feature](https://github.com/Jat21in/PORTFLIX/issues)**
 
 </div>
