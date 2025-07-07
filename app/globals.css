@@ -1,0 +1,587 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Splash Screen Animations */
+.splash-animation {
+  animation: splash-fade-in 2s ease-out;
+}
+
+@keyframes splash-fade-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.loading-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2rem;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  background: #e50914;
+  border-radius: 50%;
+  animation: dot-bounce 1.4s ease-in-out infinite both;
+}
+
+.dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+.dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes dot-bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+/* Profile Selection Animations */
+.profile-card {
+  animation: profile-fade-in 0.8s ease-out forwards;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.profile-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.profile-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.profile-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.profile-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+@keyframes profile-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Video Background Simulation */
+.video-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, #1a1a1a, #2d1b69, #1a1a1a, #8b0000);
+  background-size: 400% 400%;
+  animation: video-gradient 15s ease infinite;
+}
+
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+}
+
+.video-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+@keyframes video-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.floating-code-blocks {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.code-block {
+  position: absolute;
+  padding: 8px 12px;
+  background: rgba(229, 9, 20, 0.1);
+  border: 1px solid rgba(229, 9, 20, 0.3);
+  border-radius: 4px;
+  color: #e50914;
+  font-family: "Courier New", monospace;
+  font-size: 12px;
+  animation: float-code 20s linear infinite;
+  backdrop-filter: blur(2px);
+}
+
+@keyframes float-code {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Netflix Loading Animation */
+.netflix-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.netflix-loader-dot {
+  width: 12px;
+  height: 12px;
+  background: #e50914;
+  border-radius: 50%;
+  animation: netflix-bounce 1.4s ease-in-out infinite both;
+}
+
+.netflix-loader-dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+.netflix-loader-dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes netflix-bounce {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+/* Netflix Title Animation */
+.netflix-title {
+  background: linear-gradient(45deg, #ffffff, #e50914, #ffffff);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: netflix-gradient 3s ease infinite;
+}
+
+@keyframes netflix-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Matrix Rain Effect */
+.matrix-rain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0.1;
+}
+
+.matrix-column {
+  position: absolute;
+  top: -100%;
+  width: 20px;
+  height: 100vh;
+  animation: matrix-fall linear infinite;
+}
+
+.matrix-char {
+  display: block;
+  color: #e50914;
+  font-family: "Courier New", monospace;
+  font-size: 12px;
+  line-height: 1.2;
+  animation: matrix-flicker 0.5s linear infinite;
+}
+
+@keyframes matrix-fall {
+  0% {
+    transform: translateY(-100vh);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes matrix-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+/* Floating Shapes */
+.floating-shapes {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.floating-shape {
+  position: absolute;
+  opacity: 0.1;
+  animation: float-around linear infinite;
+}
+
+.shape-0 {
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(45deg, #e50914, transparent);
+  border-radius: 50%;
+}
+
+.shape-1 {
+  width: 15px;
+  height: 15px;
+  background: #e50914;
+  transform: rotate(45deg);
+}
+
+.shape-2 {
+  width: 25px;
+  height: 25px;
+  border: 2px solid #e50914;
+  border-radius: 50%;
+}
+
+.shape-3 {
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(135deg, #e50914, #b81d24);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+@keyframes float-around {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(100px, -50px) rotate(90deg);
+  }
+  50% {
+    transform: translate(-50px, -100px) rotate(180deg);
+  }
+  75% {
+    transform: translate(-100px, 50px) rotate(270deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(360deg);
+  }
+}
+
+/* Glowing Orbs */
+.glowing-orbs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.glowing-orb {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(229, 9, 20, 0.3), transparent);
+  animation: orb-float linear infinite;
+  filter: blur(20px);
+}
+
+@keyframes orb-float {
+  0% {
+    transform: translate(0, 100vh) scale(0);
+  }
+  10% {
+    transform: translate(0, 90vh) scale(1);
+  }
+  90% {
+    transform: translate(0, -10vh) scale(1);
+  }
+  100% {
+    transform: translate(0, -20vh) scale(0);
+  }
+}
+
+/* Code Streams */
+.code-streams {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0.1;
+}
+
+.code-stream {
+  position: absolute;
+  top: -50px;
+  width: 200px;
+  animation: code-stream-fall 15s linear infinite;
+}
+
+.code-text {
+  color: #e50914;
+  font-family: "Courier New", monospace;
+  font-size: 10px;
+  white-space: nowrap;
+  animation: code-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes code-stream-fall {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+  }
+}
+
+@keyframes code-glow {
+  0% {
+    text-shadow: 0 0 5px #e50914;
+  }
+  100% {
+    text-shadow: 0 0 20px #e50914, 0 0 30px #e50914;
+  }
+}
+
+/* Netflix Card Hover Effects */
+.netflix-card {
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.netflix-card:hover {
+  transform: scale(1.05) translateY(-10px);
+  box-shadow: 0 25px 50px rgba(229, 9, 20, 0.3);
+}
+
+/* Netflix Button Effects */
+.netflix-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.netflix-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.netflix-button:hover::before {
+  left: 100%;
+}
+
+.netflix-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(229, 9, 20, 0.4);
+}
+
+/* Netflix Progress Bar */
+.netflix-progress {
+  background: linear-gradient(90deg, #e50914, #ff6b6b, #e50914);
+  background-size: 200% 100%;
+  animation: netflix-progress-glow 2s ease-in-out infinite;
+}
+
+@keyframes netflix-progress-glow {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #141414;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e50914;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b81d24;
+}
+
+/* 3D Scene Styles */
+.three-scene {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Additional Responsive Styles */
+@media (max-width: 768px) {
+  .profile-card {
+    margin-bottom: 2rem;
+  }
+
+  .floating-code-blocks .code-block {
+    font-size: 10px;
+    padding: 4px 8px;
+  }
+
+  .netflix-title {
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .netflix-title {
+    font-size: 2.5rem;
+  }
+
+  .code-block {
+    font-size: 8px;
+    padding: 2px 4px;
+  }
+}
