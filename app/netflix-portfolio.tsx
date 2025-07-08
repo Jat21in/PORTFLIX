@@ -28,7 +28,7 @@ import {
   CodeXml,
   Sparkles,
   Edit,
-  Trash2 
+  Trash2,
 } from "lucide-react";
 import Image from "next/image";
 import { Canvas } from "@react-three/fiber";
@@ -350,8 +350,11 @@ export default function NetflixPortfolio() {
   const [currentEpisode, setCurrentEpisode] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
-  const [watchProgress, setWatchProgress] = useState(0);
-  const [showSkipIntro, setShowSkipIntro] = useState(false);
+
+  const [showModal, setShowModal] = useState(false);
+
+  const [watchProgress, setWatchProgress] = useState(25);
+  const [showSkipIntro, setShowSkipIntro] = useState(true);
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const [currentSeason, setCurrentSeason] = useState(1);
   const [showContinueWatching, setShowContinueWatching] = useState(true);
@@ -369,35 +372,34 @@ export default function NetflixPortfolio() {
 
   // Splash screen timer with Netflix sound effect
   // Splash screen timer with Netflix sound effect
-useEffect(() => {
-  if (currentScreen === "splash") {
-    const timer = setTimeout(() => {
-      setTransitionPhase("fadeOut");
-      setIsTransitioning(true);
+  useEffect(() => {
+    if (currentScreen === "splash") {
+      const timer = setTimeout(() => {
+        setTransitionPhase("fadeOut");
+        setIsTransitioning(true);
 
-      // Play Netflix sound effect
-      if (audioRef.current) {
-        audioRef.current.volume = 0.7;
-        audioRef.current.play().catch(console.error);
-      }
+        // Play Netflix sound effect
+        if (audioRef.current) {
+          audioRef.current.volume = 0.7;
+          audioRef.current.play().catch(console.error);
+        }
 
-      // Transition to profiles more quickly
-      setTimeout(() => {
-        setTransitionPhase("fadeIn");
-        setCurrentScreen("profiles");
-      }, 800); // faster screen switch
+        // Transition to profiles more quickly
+        setTimeout(() => {
+          setTransitionPhase("fadeIn");
+          setCurrentScreen("profiles");
+        }, 800); // faster screen switch
 
-      // Complete transition
-      setTimeout(() => {
-        setIsTransitioning(false);
-        setTransitionPhase("idle");
-      }, 1000); // shorter overall duration
-    }, 1500); // Start transition sooner (was 3000)
-    
-    return () => clearTimeout(timer);
-  }
-}, [currentScreen]);
+        // Complete transition
+        setTimeout(() => {
+          setIsTransitioning(false);
+          setTransitionPhase("idle");
+        }, 1000); // shorter overall duration
+      }, 1500); // Start transition sooner (was 3000)
 
+      return () => clearTimeout(timer);
+    }
+  }, [currentScreen]);
 
   useEffect(() => {
     setIsVisible(true);
@@ -764,17 +766,16 @@ useEffect(() => {
   ];
 
   const handleProfileSelect = (profileId: UserProfile) => {
-  if (audioRefProfileClick.current) {
-    audioRefProfileClick.current.volume = 0.8;
-    audioRefProfileClick.current.play().catch(console.error);
-  }
+    if (audioRefProfileClick.current) {
+      audioRefProfileClick.current.volume = 0.8;
+      audioRefProfileClick.current.play().catch(console.error);
+    }
 
-  setTimeout(() => {
-    setSelectedProfile(profileId);
-    setCurrentScreen("main");
-  }, 700); // Delay to allow sound to play before transition
-};
-
+    setTimeout(() => {
+      setSelectedProfile(profileId);
+      setCurrentScreen("main");
+    }, 700); // Delay to allow sound to play before transition
+  };
 
   const skipIntro = () => {
     setShowSkipIntro(false);
@@ -822,8 +823,6 @@ useEffect(() => {
       </div>
     );
   }
-
-  
 
   // Profile Selection Screen
   if (currentScreen === "profiles") {
@@ -1119,65 +1118,82 @@ useEffect(() => {
       </nav>
       {/* Hero Section with Video Background */}
       <section id="home" className="relative h-screen overflow-hidden">
-        {/* Video Background Simulation */}
+        {/* Background: Video or Animation */}
         <div className="absolute inset-0 z-0">
-          <div className="video-background">
-            <div className="video-overlay"></div>
-            <div className="video-content">
-              <div className="floating-code-blocks">
-                {Array.from({ length: 20 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className="code-block"
-                    style={{
-                      left: `${Math.random() * 100}%`,
-                      top: `${Math.random() * 100}%`,
-                      animationDelay: `${Math.random() * 5}s`,
-                    }}
-                  >
-                    {
-                      [
-                        "React",
-                        "Node.js",
-                        "TypeScript",
-                        "Python",
-                        "AWS",
-                        "Docker",
-                        "Next.js",
-                        "Express.js",
-                        "GraphQL",
-                        "MongoDB",
-                        "PostgreSQL",
-                        "MySQL",
-                        "Redux",
-                        "Tailwind CSS",
-                        "Sass",
-                        "Kubernetes",
-                        "Terraform",
-                        "Firebase",
-                        "Jenkins",
-                        "Git",
-                        "GitHub Actions",
-                        "Nginx",
-                        "Linux",
-                        "Webpack",
-                        "Jest",
-                        "Cypress",
-                        "Socket.io",
-                        "REST API",
-                        "OpenAI API",
-                        "Elasticsearch",
-                        "Redis",
-                      ][Math.floor(Math.random() * 6)]
-                    }
-                  </div>
-                ))}
+          {isPlaying ? (
+            <video
+              autoPlay
+              muted={isMuted}
+              loop
+              playsInline
+              className="w-full h-full object-cover transition-opacity duration-1000 opacity-100"
+            >
+              <source src="/bgv.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          ) : (
+            <div className="video-background transition-opacity duration-1000 opacity-100">
+              <div className="video-overlay"></div>
+              <div className="video-content">
+                <div className="floating-code-blocks">
+                  {Array.from({ length: 20 }).map((_, i) => (
+                    <div
+                      key={i}
+                      className="code-block"
+                      style={{
+                        left: `${Math.random() * 100}%`,
+                        top: `${Math.random() * 100}%`,
+                        animationDelay: `${Math.random() * 5}s`,
+                      }}
+                    >
+                      {
+                        [
+                          "React",
+                          "Node.js",
+                          "TypeScript",
+                          "Python",
+                          "AWS",
+                          "Docker",
+                          "Next.js",
+                          "Express.js",
+                          "GraphQL",
+                          "MongoDB",
+                          "PostgreSQL",
+                          "MySQL",
+                          "Redux",
+                          "Tailwind CSS",
+                          "Sass",
+                          "Kubernetes",
+                          "Terraform",
+                          "Firebase",
+                          "Jenkins",
+                          "Git",
+                          "GitHub Actions",
+                          "Nginx",
+                          "Linux",
+                          "Webpack",
+                          "Jest",
+                          "Cypress",
+                          "Socket.io",
+                          "REST API",
+                          "OpenAI API",
+                          "Elasticsearch",
+                          "Redis",
+                        ][Math.floor(Math.random() * 6)]
+                      }
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
+
+        {/* Gradient Overlays */}
         <div className="absolute inset-0 bg-gradient-to-r from-black via-transparent to-black z-10"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10"></div>
+
+        {/* Main Content */}
         <div className="relative z-20 container mx-auto px-4 h-full flex items-center">
           <div className="max-w-2xl">
             <div className="mb-4">
@@ -1196,6 +1212,8 @@ useEffect(() => {
               transforms from coding novice to full-stack master in this
               thrilling three-season saga.
             </p>
+
+            {/* Buttons */}
             <div className="flex items-center space-x-4 mb-8">
               <Button
                 size="lg"
@@ -1209,12 +1227,14 @@ useEffect(() => {
                 size="lg"
                 variant="outline"
                 className="border-gray-500 text-white hover:border-white bg-gray-800/50 backdrop-blur-sm px-8 py-3"
+                onClick={() => setShowModal(true)}
               >
                 <Info className="mr-2 h-5 w-5" />
                 More Info
               </Button>
             </div>
-            {/* Netflix-style controls */}
+
+            {/* Netflix-style Controls */}
             {isPlaying && (
               <div className="flex items-center space-x-4 text-sm">
                 <div className="flex items-center space-x-2">
@@ -1249,11 +1269,15 @@ useEffect(() => {
             )}
           </div>
         </div>
-        {/* Skip Intro Button */}
+
+        {/* Skip Intro */}
         {showSkipIntro && isPlaying && (
           <div className="absolute bottom-20 right-8 z-30">
             <Button
-              onClick={skipIntro}
+              onClick={() => {
+                skipIntro();
+                setIsPlaying(false); // Switch back to animation
+              }}
               className="bg-gray-800/80 hover:bg-gray-700 text-white border border-gray-600"
             >
               <SkipForward className="mr-2 h-4 w-4" />
@@ -1261,13 +1285,94 @@ useEffect(() => {
             </Button>
           </div>
         )}
+
         {/* Progress Bar */}
         {isPlaying && (
           <div className="absolute bottom-0 left-0 right-0 z-30">
             <Progress value={watchProgress} className="h-1 bg-gray-800" />
           </div>
         )}
+
+        {/* Modal Popup on "More Info" */}
+        {showModal && (
+          <div className="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center overflow-y-auto p-4">
+            <div className="bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white rounded-xl p-6 sm:p-8 w-full max-w-2xl shadow-2xl relative border border-red-600 animate-fadeIn max-h-[90vh] overflow-y-auto">
+              {/* Close Button */}
+              <button
+                onClick={() => setShowModal(false)}
+                className="absolute top-4 right-4 text-gray-400 hover:text-red-500 transition"
+              >
+                ✕
+              </button>
+
+              {/* Heading */}
+              <h2 className="text-3xl font-extrabold mb-2 text-red-500 tracking-wide">
+                👨‍💻 Jatin Mittal
+              </h2>
+              <p className="text-gray-300 mb-4 text-sm italic">
+                Full-Stack Developer | Tech Enthusiast | Code Storyteller
+              </p>
+
+              {/* Skills */}
+              <div className="mb-4">
+                <h3 className="text-xl font-semibold mb-2">🛠️ Tech Stack</h3>
+                <div className="flex flex-wrap gap-2 text-sm text-white">
+                  {[
+                    "React",
+                    "Next.js",
+                    "Node.js",
+                    "TypeScript",
+                    "Python",
+                    "Docker",
+                    "MongoDB",
+                    "MySQL",
+                    "Tailwind CSS",
+                    "Elasticsearch",
+                    "Snort",
+                    "Power BI",
+                  ].map((skill, idx) => (
+                    <span
+                      key={idx}
+                      className="bg-red-600/20 text-red-400 px-3 py-1 rounded-full border border-red-500 backdrop-blur-sm shadow-sm hover:bg-red-600/30 transition"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Coding GIF */}
+              <div className="mb-6">
+                <img
+                  src="https://media.giphy.com/media/13HgwGsXF0aiGY/giphy.gif"
+                  alt="Tech Coding"
+                  className="rounded-lg w-full max-h-56 object-cover border border-red-600"
+                />
+              </div>
+
+              {/* Footer */}
+              <div className="flex justify-between items-center">
+                <a
+                  href="mailto:mittaljatin2004@gmail.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-red-600 hover:bg-red-700 px-5 py-2 rounded font-semibold shadow text-sm transition"
+                >
+                  📩 Contact Me
+                </a>
+                <a
+                  href="/JatinMittal_Resume.pdf"
+                  download
+                  className="bg-red-600 hover:bg-red-700 px-5 py-2 rounded font-semibold shadow text-sm transition"
+                >
+                  📄 Download Resume
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
       </section>
+
       {/* Continue Watching */}
       {showContinueWatching && (
         <section className="py-8 bg-black relative z-10">
@@ -1330,7 +1435,7 @@ useEffect(() => {
       <section id="originals" className="py-12 bg-black relative z-10">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold mb-8 text-white">
-            Netflix Originals
+            Portflix Originals
           </h2>
           <div className="space-y-12">
             {netflixOriginals.map((project, index) => (
@@ -1706,53 +1811,57 @@ useEffect(() => {
         </div>
       </section>
       {/* Achievements */}
-      <section id="achievements" className="py-20 px-4 md:px-8 relative z-10 bg-gradient-to-t from-black via-black/80 to-transparent">
-  <div className="container mx-auto">
-    <h2 className="text-5xl font-bold text-center mb-16 text-white netflix-title animate-fadeInUp">
-      My Accolade Collection
-    </h2>
+      <section
+        id="achievements"
+        className="py-20 px-4 md:px-8 relative z-10 bg-gradient-to-t from-black via-black/80 to-transparent"
+      >
+        <div className="container mx-auto">
+          <h2 className="text-5xl font-bold text-center mb-16 text-white netflix-title animate-fadeInUp">
+            My Accolade Collection
+          </h2>
 
-    {/* Category Selection - Keep this section if you want the category filtering */}
-    <div className="text-center mb-12 animate-fadeInUp">
-  <p className="text-lg text-gray-300 mb-6 mx-auto max-w-3xl">
-    Explore my significant achievements, certifications, and project milestones.
-  </p>
-</div>
+          {/* Category Selection - Keep this section if you want the category filtering */}
+          <div className="text-center mb-12 animate-fadeInUp">
+            <p className="text-lg text-gray-300 mb-6 mx-auto max-w-3xl">
+              Explore my significant achievements, certifications, and project
+              milestones.
+            </p>
+          </div>
 
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-      {achievements.map((achievement: AchievementItem) => (
-        <Card
-          key={achievement.id}
-          // The 'group' class is essential for group-hover effects on children
-          className="bg-gray-900 border-gray-800 overflow-hidden group relative cursor-pointer
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {achievements.map((achievement: AchievementItem) => (
+              <Card
+                key={achievement.id}
+                // The 'group' class is essential for group-hover effects on children
+                className="bg-gray-900 border-gray-800 overflow-hidden group relative cursor-pointer
                      transition-all duration-300 transform
                      hover:scale-105
                      hover:border-red-600                       /* New: Border lights up red */
                      hover:shadow-[0_0_20px_rgba(239,68,68,0.6)] /* New: Red glowing shadow */
                      hover:bg-gray-800                          /* New: Slightly lighter background */
                     "
-        >
-          <div className="relative w-full h-48">
-            <Image
-              src={achievement.imageSrc}
-              alt={achievement.name}
-              layout="fill"
-              objectFit="cover"
-              className="rounded-md transition-transform duration-300 group-hover:scale-110" // Image scales slightly on hover
-            />
-            {/* Overlay for event name on hover */}
-            <div className="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-md">
-              <h3 className="text-xl font-semibold text-white">
-                {achievement.name}
-              </h3>
-            </div>
+              >
+                <div className="relative w-full h-48">
+                  <Image
+                    src={achievement.imageSrc}
+                    alt={achievement.name}
+                    layout="fill"
+                    objectFit="cover"
+                    className="rounded-md transition-transform duration-300 group-hover:scale-110" // Image scales slightly on hover
+                  />
+                  {/* Overlay for event name on hover */}
+                  <div className="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-md">
+                    <h3 className="text-xl font-semibold text-white">
+                      {achievement.name}
+                    </h3>
+                  </div>
+                </div>
+                {/* CardContent is removed as per the requirement to show name ONLY on hover over image */}
+              </Card>
+            ))}
           </div>
-          {/* CardContent is removed as per the requirement to show name ONLY on hover over image */}
-        </Card>
-      ))}
-    </div>
-  </div>
-</section>
+        </div>
+      </section>
       {/* Call to Action / Contact */}
       <section
         id="contact"
