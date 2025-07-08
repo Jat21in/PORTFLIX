@@ -378,6 +378,52 @@ export default function NetflixPortfolio() {
         setTransitionPhase("fadeOut");
         setIsTransitioning(true);
 
+        // Attempt to play audio (unmute before playing)
+        if (audioRef.current) {
+          audioRef.current.muted = false; // Unmute explicitly
+          audioRef.current.volume = 0.7;
+          audioRef.current.play().catch((err) => {
+            console.warn("Autoplay failed:", err);
+          });
+        }
+
+        // Fast screen switch
+        setTimeout(() => {
+          setTransitionPhase("fadeIn");
+          setCurrentScreen("profiles");
+        }, 800);
+
+        // End of transition
+        setTimeout(() => {
+          setIsTransitioning(false);
+          setTransitionPhase("idle");
+        }, 1000);
+      }, 1500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [currentScreen]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (audio) {
+      audio.play().catch(() => {
+        // If autoplay fails, wait for any interaction to trigger it
+        const handler = () => {
+          audio.play();
+          window.removeEventListener("click", handler);
+        };
+        window.addEventListener("click", handler);
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (currentScreen === "splash") {
+      const timer = setTimeout(() => {
+        setTransitionPhase("fadeOut");
+        setIsTransitioning(true);
+
         // Play Netflix sound effect
         if (audioRef.current) {
           audioRef.current.volume = 0.7;
@@ -793,7 +839,7 @@ export default function NetflixPortfolio() {
         }`}
       >
         {/* Netflix Sound Effect */}
-        <audio ref={audioRef} preload="auto">
+        <audio ref={audioRef} preload="auto" muted autoPlay>
           <source src="/Netflix-intro.mp3" type="audio/mp3" />
         </audio>
 
