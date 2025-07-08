@@ -13,7 +13,7 @@
 
 [🚀 Live Demo](https://portflix-three.vercel.app/) • [📚 Docs](https://github.com/Jat21in/PORTFLIX/) • [🐛 Report Bug](https://github.com/Jat21in/PORTFLIX/)
 
-<img src="public/1.png" alt="PORTFLIX Portfolio Dashboard" width="700"/>
+<img src="public/new.png" alt="PORTFLIX Portfolio Dashboard" width="700"/>
 
 </div>
 
