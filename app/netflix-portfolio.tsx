@@ -725,26 +725,27 @@ export default function NetflixPortfolio() {
       duration: "1h 30m Film", // Represents a focused project
     },
     {
-      id: 4,
-      title: "HydroHarmony: Smart Irrigation",
-      tagline: "A Deep Learning Agricultural Saga",
-      description:
-        "HydroHarmony is a state-of-the-art system designed to revolutionize irrigation and fertilization management in agriculture through advanced machine learning techniques. It leverages Support Vector Machine (SVM) and Random Forest algorithms to optimize water and fertilizer distribution, ensuring precise decision-making that maximizes crop yield and minimizes resource waste.",
-      image: "/p2.png?height=400&width=600", // You'll want to replace this with an actual image for HydroHarmony
-      tech: [
-        "Machine Learning",
-        "SVM",
-        "Random Forest",
-        "Python",
-        "Agricultural Tech",
-      ],
-      github: "https://github.com/Jat21in/HydroHarmonay",
-      live: "https://www.scopus.com/pages/publications/105003540617", // Set to null since it's not live
-      rating: "97% Match",
-      genre: "Agricultural AI / Optimization",
-      year: "2024", // Assuming completion in 2024
-      duration: "Research Project",
-    },
+  id: 4,
+  title: "Artisan's Chronoscape",
+  tagline: "Discover Timeless Handcrafted Treasures",
+  description:
+    "Artisan's Chronoscape is a premium e-commerce platform dedicated to showcasing and selling authentic handcrafted items from master artisans across the globe. It blends elegant design with cutting-edge web technology to preserve cultural heritage and empower artisans.",
+  image: "/d1.png", // Ensure this image exists in your public folder
+  tech: [
+    "Next.js 15",
+    "Tailwind CSS",
+    "Zustand",
+    "TypeScript",
+    "shadcn/ui",
+    "Lucide Icons"
+  ],
+  github: "https://github.com/Jat21in/Artisan-s-Chronoscape",
+  live: "https://artisan-s-chronoscape.vercel.app/",
+  rating: "98% Match",
+  genre: "E-Commerce / Cultural Tech",
+  year: "2025", // Assuming it’s finalized or published this year
+  duration: "Full Stack Project"
+}
   ];
 
   const skills = [
