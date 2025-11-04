@@ -144,7 +144,7 @@ const achievements = [
   {
     id: "2",
     name: "Technicia’25 – Core Organizer & Website Developer",
-    imageSrc: "/techlead.jpg",
+    imageSrc: "/technicia-team.jpg",
   },
   {
     id: "3",
@@ -159,7 +159,7 @@ const achievements = [
   {
     id: "5",
     name: "Core Member – ISTE-CU Chapter Launch",
-    imageSrc: "/iste.jpeg",
+    imageSrc: "/flashmob.jpg",
   },
   {
     id: "6",
@@ -185,6 +185,11 @@ const achievements = [
     id: "10",
     name: "Best Project Award – Hardware Category",
     imageSrc: "/project.jpg",
+  },
+  {
+    id: "11",
+    name: "Joint Secretary – ISTE Student Chapter CU",
+    imageSrc: "/core.png",
   }
 ];
 
@@ -1865,7 +1870,12 @@ export default function NetflixPortfolio() {
       {/* Achievements */}
 
       {/* Achievements - Netflix Carousel Style */}
-      <AchievementsCarousel achievements={achievements} />
+      <section
+        id="achievements"
+        className="py-20 px-4 md:px-8 relative z-10 bg-gradient-to-t from-black via-black/80 to-transparent"
+      >
+         <AchievementsCarousel achievements={achievements} />
+      </section>
       
 
 
