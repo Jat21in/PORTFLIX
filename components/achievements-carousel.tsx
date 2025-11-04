@@ -72,15 +72,10 @@ export function AchievementsCarousel({ achievements }: { achievements: Achieveme
         />
       </div>
 
-      <div className="relative w-full max-w-6xl z-10">
-        <motion.h2
-          className="text-4xl md:text-5xl font-extrabold text-white tracking-wide drop-shadow-2xl text-center mb-12"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          My Accolade Collection
-        </motion.h2>
+      <div className="container mx-auto px-4 text-center">
+          <h2 className="text-4xl font-bold mb-6 text-white netflix-title">
+            My Accolade Collections
+          </h2>
 
         <div className="relative w-full flex items-center justify-center gap-4 md:gap-6">
           {/* Left Preview (Blurred) */}
