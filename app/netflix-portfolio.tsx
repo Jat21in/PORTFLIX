@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { motion } from "framer-motion";
+
 import {
   Github,
   Linkedin,
@@ -40,6 +42,7 @@ import {
   Environment,
 } from "@react-three/drei";
 import type * as THREE from "three";
+import { AchievementsCarousel } from "@/components/achievements-carousel";
 
 // 3D Components
 function AnimatedSphere({
@@ -132,80 +135,60 @@ interface Season {
   episodesCount: number; // This is the corrected property name!
 }
 
-interface AchievementItem {
-  id: number;
-  name: string; // The event/achievement name to show on hover
-  imageSrc: string; // Path to the image (certificate, award, project screenshot)
-  category: string; // For internal categorization or potential future filtering
-  fullDescription?: string; // Optional: for a potential modal if clicked
-}
-
-const achievements: AchievementItem[] = [
+const achievements = [
   {
-    id: 1,
-    name: "Core Member ISTE-CU Launch",
-    imageSrc: "/techlead.jpg", // Placeholder: Replace with actual image
-    category: "Leadership",
-    fullDescription:
-      "Recognized as a core member for the successful launch and establishment of the Indian Society for Technical Education (ISTE) chapter at Chandigarh University.",
+    id: "1",
+    name: "ISTE Best Student Award 2025 (North Section)",
+    imageSrc: "/iste-award.jpg",
   },
   {
-    id: 2,
-    name: "Top Performer Project Exhibition",
-    imageSrc: "/project.jpg", // Placeholder: Replace with actual image
-    category: "Project Excellence",
-    fullDescription:
-      "Awarded as a top performer in the university's project exhibition for an outstanding and impactful technical project.",
+    id: "2",
+    name: "Technicia’25 – Core Organizer & Website Developer",
+    imageSrc: "/techlead.jpg",
   },
   {
-    id: 3,
-    name: "Leadership Recognition",
-    imageSrc: "/iste.jpg", // Placeholder: Replace with actual image
-    category: "Leadership",
-    fullDescription:
-      "Acknowledged for exceptional leadership in various campus initiatives and student organizations.",
+    id: "3",
+    name: "Deputy Director General – MUN'25",
+    imageSrc: "/chairmun.jpeg",
   },
   {
-    id: 4,
-    name: "Innovation in AI - HackWithIndia",
-    imageSrc: "/hackwithindia.jpg", // Placeholder: Replace with actual image
-    category: "Hackathon",
-    fullDescription:
-      "Recognized for innovative use of AI in a solution developed during the 'HackWithIndia' hackathon.",
+    id: "4",
+    name: "AI Hackathon Winner – Process Optimization",
+    imageSrc: "/dsa.jpg",
   },
   {
-    id: 5,
-    name: "Best Diwali-Extravaganza Stall",
-    imageSrc: "/diwali.jpg", // Placeholder: Replace with actual image
-    category: "Event Management",
-    fullDescription:
-      "Secured the 'Best Stall' award at the university's annual Diwali Extravaganza for creativity and engagement.",
+    id: "5",
+    name: "Core Member – ISTE-CU Chapter Launch",
+    imageSrc: "/iste.jpeg",
   },
   {
-    id: 6,
-    name: "Winner DSA Competition",
-    imageSrc: "/dsa.jpg", // Placeholder: Replace with actual image
-    category: "Competitive Programming",
-    fullDescription:
-      "Achieved first place in a highly competitive Data Structures and Algorithms (DSA) competition.",
+    id: "6",
+    name: "Liaison Officer – CU CAB Meeting 2025",
+    imageSrc: "/cab.jpeg",
   },
   {
-    id: 7,
-    name: "Liaison Officer - CU CAB Meeting 2025",
-    imageSrc: "/cab.jpeg", // Placeholder: Replace with actual image
-    category: "Coordination",
-    fullDescription:
-      "Served as the Liaison Officer for the prestigious Chandigarh University Campus Advisory Board (CAB) Meeting 2025.",
+    id: "7",
+    name: "Winner – DSA Coding Competition",
+    imageSrc: "/dsa.jpg",
   },
   {
-    id: 8,
-    name: "Deputy Director General MUN'25",
-    imageSrc: "/chairmun.jpeg", // Placeholder: Replace with actual image
-    category: "Leadership",
-    fullDescription:
-      "Appointed as the Deputy Director General for Model United Nations (MUN) 2025, coordinating between committees and ensuring seamless operational excellence.",
+    id: "8",
+    name: "Innovation in AI – HackWithIndia",
+    imageSrc: "/hackwithindia.jpg",
   },
+  {
+    id: "9",
+    name: "Best Diwali Extravaganza Stall",
+    imageSrc: "/diwali.jpg",
+  },
+  {
+    id: "10",
+    name: "Best Project Award – Hardware Category",
+    imageSrc: "/project.jpg",
+  }
 ];
+
+
 
 const allEpisodes: { [key: number]: Episode[] } = {
   // Season 1: EDUCATION
@@ -660,93 +643,115 @@ export default function NetflixPortfolio() {
   ];
 
   const netflixOriginals = [
-    {
-      id: 1,
-      title: "MUN Event Website (Technicia'25)",
-      tagline: "Connecting Delegates, Streamlining Events",
-      description:
-        "Developed a full-stack SaaS platform for real-time AI-driven image editing and enhancement for the Technicia'25 MUN event at Chandigarh University. This project streamlined event management, user registration, and content delivery, ensuring a seamless experience for all participants.",
-      image: "/mun.png?height=400&width=600", // You'll want to replace this with an actual image for MUN Event Website
-      tech: [
-        "Next.js",
-        "MongoDB",
-        "Google OAuth",
-        "Tailwind CSS",
-        "Authentication",
-        "Event Management",
-      ],
-      github: "https://github.com/Jat21in/MUN-ISTE",
-      live: "https://mun-iste.vercel.app/",
-      rating: "88% Match",
-      genre: "Event Management / Web Platform",
-      year: "2025", // Assuming 2025 for Technicia'25
-      duration: "Event Special",
-    },
-    {
-      id: 2,
-      title: "Imaginify: AI Image SaaS",
-      tagline: "Your Vision, AI-Enhanced",
-      description:
-        "Imaginify is a full-fledged AI-powered image processing SaaS platform that enables users to perform sophisticated image transformations using cutting-edge AI techniques. It features secure user management, a credit-based image processing model, payment integration, and a responsive interface.",
-      image: "/imaginify.png?height=400&width=600", // You'll want to replace this with an actual image for Imaginify
-      tech: [
-        "Next.js",
-        "Clerk Authentication",
-        "MongoDB",
-        "Cloudinary API",
-        "Stripe",
-        "Tailwind CSS",
-      ],
-      github: "https://github.com/Jat21in/imaginify",
-      live: "https://imaginify-mocha-two.vercel.app/",
-      rating: "95% Match",
-      genre: "SaaS / AI / E-commerce",
-      year: "2024",
-      duration: "1 Season", // Represents an ongoing or substantial project
-    },
-    {
-      id: 3,
-      title: "Gamified Admin Arena (NEXUS-COMMAND-CENTER)",
-      tagline: "Level Up Your Productivity!",
-      description:
-        "Gamified Admin Arena is a vibrant, retro-themed admin dashboard built with React.js that transforms mundane admin operations into engaging gamified missions. Earn XP, level up, unlock badges, customize your avatar, and even switch to 8-bit Retro Mode for that nostalgic feel!",
-      image: "/dashboard.png?height=400&width=600", // You'll want to replace this with an actual image for Gamified Admin Arena
-      tech: [
-        "React.js",
-        "Tailwind CSS",
-        "Gamification Concepts",
-        "Frontend Development",
-      ],
-      github: "https://github.com/Jat21in/NEXUS-COMMAND-CENTER",
-      live: "https://nexus-command-center.vercel.app/",
-      rating: "90% Match",
-      genre: "Productivity / UI/UX / Gamification",
-      year: "2024",
-      duration: "1h 30m Film", // Represents a focused project
-    },
-    {
-  id: 4,
-  title: "Artisan's Chronoscape",
-  tagline: "Discover Timeless Handcrafted Treasures",
-  description:
-    "Artisan's Chronoscape is a premium e-commerce platform dedicated to showcasing and selling authentic handcrafted items from master artisans across the globe. It blends elegant design with cutting-edge web technology to preserve cultural heritage and empower artisans.",
-  image: "/d1.png", // Ensure this image exists in your public folder
-  tech: [
-    "Next.js 15",
-    "Tailwind CSS",
-    "Zustand",
-    "TypeScript",
-    "shadcn/ui",
-    "Lucide Icons"
-  ],
-  github: "https://github.com/Jat21in/Artisan-s-Chronoscape",
-  live: "https://artisan-s-chronoscape.vercel.app/",
-  rating: "98% Match",
-  genre: "E-Commerce / Cultural Tech",
-  year: "2025", // Assuming it’s finalized or published this year
-  duration: "Full Stack Project"
-}
-  ];
+  {
+    id: 1,
+    title: "MUN Event Website (Technicia'25)",
+    tagline: "Connecting Delegates, Streamlining Events",
+    description:
+      "Developed a full-stack SaaS platform for real-time AI-driven image editing and enhancement for the Technicia'25 MUN event at Chandigarh University. This project streamlined event management, user registration, and content delivery, ensuring a seamless experience for all participants.",
+    image: "/mun.png?height=400&width=600",
+    tech: [
+      "Next.js",
+      "MongoDB",
+      "Google OAuth",
+      "Tailwind CSS",
+      "Authentication",
+      "Event Management",
+    ],
+    github: "https://github.com/Jat21in/MUN-ISTE",
+    live: "https://mun-iste.vercel.app/",
+    rating: "88% Match",
+    genre: "Event Management / Web Platform",
+    year: "2025",
+    duration: "Event Special",
+  },
+  {
+    id: 2,
+    title: "Technicia: Rise of Innovation",
+    tagline: "Where Technology Meets Creativity",
+    description:
+      "Technicia'25 — Chandigarh University's flagship tech fest — brought together innovation, AI, and creativity under one digital roof. This official event website delivers a cinematic browsing experience with dynamic sections, responsive design, and seamless participant engagement powered by modern web technologies.",
+    image: "/technicia.png?height=400&width=600",
+    tech: [
+      "Next.js",
+      "Tailwind CSS",
+      "Framer Motion",
+      "Dynamic Routing",
+      "Responsive UI",
+      "Event Showcasing"
+    ],
+    github: "https://github.com/Jat21in/Technicia-25",
+    live: "https://technicia-25.vercel.app/",
+    rating: "99% Match",
+    genre: "Tech Fest / Web Experience",
+    year: "2025",
+    duration: "Limited Series"
+  },
+  {
+    id: 3,
+    title: "Imaginify: AI Image SaaS",
+    tagline: "Your Vision, AI-Enhanced",
+    description:
+      "Imaginify is a full-fledged AI-powered image processing SaaS platform that enables users to perform sophisticated image transformations using cutting-edge AI techniques. It features secure user management, a credit-based image processing model, payment integration, and a responsive interface.",
+    image: "/imaginify.png?height=400&width=600",
+    tech: [
+      "Next.js",
+      "Clerk Authentication",
+      "MongoDB",
+      "Cloudinary API",
+      "Stripe",
+      "Tailwind CSS",
+    ],
+    github: "https://github.com/Jat21in/imaginify",
+    live: "https://imaginify-mocha-two.vercel.app/",
+    rating: "95% Match",
+    genre: "SaaS / AI / E-commerce",
+    year: "2024",
+    duration: "1 Season",
+  },
+  {
+    id: 4,
+    title: "Gamified Admin Arena (NEXUS-COMMAND-CENTER)",
+    tagline: "Level Up Your Productivity!",
+    description:
+      "Gamified Admin Arena is a vibrant, retro-themed admin dashboard built with React.js that transforms mundane admin operations into engaging gamified missions. Earn XP, level up, unlock badges, customize your avatar, and even switch to 8-bit Retro Mode for that nostalgic feel!",
+    image: "/dashboard.png?height=400&width=600",
+    tech: [
+      "React.js",
+      "Tailwind CSS",
+      "Gamification Concepts",
+      "Frontend Development",
+    ],
+    github: "https://github.com/Jat21in/NEXUS-COMMAND-CENTER",
+    live: "https://nexus-command-center.vercel.app/",
+    rating: "90% Match",
+    genre: "Productivity / UI/UX / Gamification",
+    year: "2024",
+    duration: "1h 30m Film",
+  },
+  {
+    id: 5,
+    title: "Artisan's Chronoscape",
+    tagline: "Discover Timeless Handcrafted Treasures",
+    description:
+      "Artisan's Chronoscape is a premium e-commerce platform dedicated to showcasing and selling authentic handcrafted items from master artisans across the globe. It blends elegant design with cutting-edge web technology to preserve cultural heritage and empower artisans.",
+    image: "/d1.png",
+    tech: [
+      "Next.js 15",
+      "Tailwind CSS",
+      "Zustand",
+      "TypeScript",
+      "shadcn/ui",
+      "Lucide Icons"
+    ],
+    github: "https://github.com/Jat21in/Artisan-s-Chronoscape",
+    live: "https://artisan-s-chronoscape.vercel.app/",
+    rating: "98% Match",
+    genre: "E-Commerce / Cultural Tech",
+    year: "2025",
+    duration: "Full Stack Project"
+  }
+];
 
   const skills = [
     // Core Programming Languages
@@ -1858,57 +1863,12 @@ export default function NetflixPortfolio() {
         </div>
       </section>
       {/* Achievements */}
-      <section
-        id="achievements"
-        className="py-20 px-4 md:px-8 relative z-10 bg-gradient-to-t from-black via-black/80 to-transparent"
-      >
-        <div className="container mx-auto">
-          <h2 className="text-5xl font-bold text-center mb-16 text-white netflix-title animate-fadeInUp">
-            My Accolade Collection
-          </h2>
 
-          {/* Category Selection - Keep this section if you want the category filtering */}
-          <div className="text-center mb-12 animate-fadeInUp">
-            <p className="text-lg text-gray-300 mb-6 mx-auto max-w-3xl">
-              Explore my significant achievements, certifications, and project
-              milestones.
-            </p>
-          </div>
+      {/* Achievements - Netflix Carousel Style */}
+      <AchievementsCarousel achievements={achievements} />
+      
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {achievements.map((achievement: AchievementItem) => (
-              <Card
-                key={achievement.id}
-                // The 'group' class is essential for group-hover effects on children
-                className="bg-gray-900 border-gray-800 overflow-hidden group relative cursor-pointer
-                     transition-all duration-300 transform
-                     hover:scale-105
-                     hover:border-red-600                       /* New: Border lights up red */
-                     hover:shadow-[0_0_20px_rgba(239,68,68,0.6)] /* New: Red glowing shadow */
-                     hover:bg-gray-800                          /* New: Slightly lighter background */
-                    "
-              >
-                <div className="relative w-full h-48">
-                  <Image
-                    src={achievement.imageSrc}
-                    alt={achievement.name}
-                    layout="fill"
-                    objectFit="cover"
-                    className="rounded-md transition-transform duration-300 group-hover:scale-110" // Image scales slightly on hover
-                  />
-                  {/* Overlay for event name on hover */}
-                  <div className="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-md">
-                    <h3 className="text-xl font-semibold text-white">
-                      {achievement.name}
-                    </h3>
-                  </div>
-                </div>
-                {/* CardContent is removed as per the requirement to show name ONLY on hover over image */}
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+
       {/* Call to Action / Contact */}
       <section
         id="contact"
